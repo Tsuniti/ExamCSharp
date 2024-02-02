@@ -2,10 +2,9 @@
 
 public class DBManagment
 {
-    ApplicationContext db = new ApplicationContext();
-
     public void AddUser(string login, string password)
     {
+        ApplicationContext db = new ApplicationContext();
         using (db)
         {
             if (db.Users.Any(user => user.Login == login))
@@ -15,10 +14,12 @@ public class DBManagment
             }
 
             db.Users.Add(new User { Login = login, Password = password });
+            //db.SaveChanges();
         }
     }
-    public void AddCharacterByUserId(int userId, string nickname, int level)
+    public void AddCharacterByUserId(int userId, string nickname, int level = 1)
     {
+        ApplicationContext db = new ApplicationContext();
         using (db)
         {
             if (!db.Users.Any(user => user.Id == userId))
@@ -32,10 +33,12 @@ public class DBManagment
                 return;
             }
             db.Characters.Add(new Character { NickName = nickname, Level = level, UserId = userId });
+            db.SaveChanges();
         }
     }
     public void AddCharacterByLogin(string login, string nickname, int level)
     {
+        ApplicationContext db = new ApplicationContext();
         using (db)
         {
             var user = db.Users.FirstOrDefault(user => user.Login == login);
@@ -50,12 +53,13 @@ public class DBManagment
                 return;
             }
             db.Characters.Add(new Character { NickName = nickname, Level = level, UserId = user.Id });
-
+            db.SaveChanges();
         }
     }
 
-    public void PrintAllInfo()
+    public void PrintAllCharactersInfo()
     {
+        ApplicationContext db = new ApplicationContext();
         using (db)
         {
             var query = from user in db.Users
@@ -78,6 +82,7 @@ public class DBManagment
     }
     public void PrintInfoByLogin(string login)
     {
+        ApplicationContext db = new ApplicationContext();
         using (db)
         {
             var query = from user in db.Users
@@ -102,6 +107,7 @@ public class DBManagment
     }
     public void PrintInfoByCharacterName(string characterName)
     {
+        ApplicationContext db = new ApplicationContext();
         using (db)
         {
 
