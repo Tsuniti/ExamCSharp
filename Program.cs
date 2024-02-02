@@ -1,2 +1,7 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using ExamCSharp;
+
+var dbManagment = new DBManagment();
+
+dbManagment.AddUser("Admin", "admin");
+dbManagment.AddCharacterByLogin("Admin", "God", 999);
+dbManagment.PrintAllCharactersInfo();
