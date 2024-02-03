@@ -14,7 +14,7 @@ public class DBManagment
             }
 
             db.Users.Add(new User { Login = login, Password = password });
-            //db.SaveChanges();
+            db.SaveChanges();
         }
     }
     public void AddCharacterByUserId(int userId, string nickname, int level = 1)
